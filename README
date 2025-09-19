@@ -1,3 +1,7 @@
+[![License: AGPL-3.0-only](https://img.shields.io/badge/License-AGPL--3.0--only-blue.svg)](./LICENSE)
+
+> **Note:** This project is open source under the GNU AGPL-3.0-only.  
+> External contributions are not accepted at this time. Do not open PRs.
 
 # High-Performance Batch Genealogy: Low-Level Optimizations (Go + CSR + NATS JetStream)
 
