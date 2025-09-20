@@ -2,22 +2,23 @@
 package graph
 
 import (
-    "testing"
-    "github.com/stretchr/testify/assert"
-    "github.com/stretchr/testify/require"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCSR_ForwardEdges(t *testing.T) {
-	// GIVEN: graph with 3 edges 
+	// GIVEN: graph with 3 edges
 	edges := []Edge{
 		{Source: 0, Target: 1},
 		{Source: 0, Target: 2},
 		{Source: 2, Target: 3},
 	}
-	expectedRowPtr := []int32{0,2,2,3,3}
-	expectedColIdx := []int32{1,2,3}
+	expectedRowPtr := []int32{0, 2, 2, 3, 3}
+	expectedColIdx := []int32{1, 2, 3}
 	n := int32(0)
-	expectedNodeNeighbors := []int32{1,2}
+	expectedNodeNeighbors := []int32{1, 2}
 
 	// WHEN: build a forward CSR and call the node neighbors
 	csr, err := NewCSR(edges, 4, false)
@@ -33,14 +34,14 @@ func TestCSR_ForwardEdges(t *testing.T) {
 }
 
 func TestCSR_ReverseEdges(t *testing.T) {
-	// GIVEN: graph with 3 edges 
+	// GIVEN: graph with 3 edges
 	edges := []Edge{
 		{Source: 0, Target: 1},
 		{Source: 0, Target: 2},
 		{Source: 2, Target: 3},
 	}
-	expectedRowPtr := []int32{0,0,1,2,3}
-	expectedColIdx := []int32{0,0,2}
+	expectedRowPtr := []int32{0, 0, 1, 2, 3}
+	expectedColIdx := []int32{0, 0, 2}
 	n := int32(3)
 	expectedNodeNeighbors := []int32{2}
 
@@ -84,9 +85,8 @@ func TestCSR_ErrNodeOutOfBounds(t *testing.T) {
 	csr, err := NewCSR(edges, numNode, false)
 	require.Nil(t, csr)
 
-	//THEN: nod out of bounds error is required
+	//THEN: node out of bounds error is required
 	require.ErrorIs(t, err, ErrNodeOutOfBounds)
-
 }
 
 func TestCSR_ErrNilEdges(t *testing.T) {
@@ -99,7 +99,6 @@ func TestCSR_ErrNilEdges(t *testing.T) {
 
 	//THEN: node out of bounds error is required
 	require.ErrorIs(t, err, ErrNilEdges)
-
 }
 
 func TestCSR_ErrNumNodes(t *testing.T) {

@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	ErrNegativeNodeID = errors.New("node IDs must be non-negative")
+	ErrNegativeNodeID  = errors.New("node IDs must be non-negative")
 	ErrNodeOutOfBounds = errors.New("edge node ID out of bound")
-	ErrNilEdges = errors.New("edges silce cannot be nil")
+	ErrNilEdges        = errors.New("edges silce cannot be nil")
 	ErrInvalidNumNodes = errors.New("numNodes must be non-negative ")
 )
 
@@ -61,38 +61,38 @@ func NewCSR(edges []Edge, numNodes int32, reverse bool) (*CSR, error) {
 	// fill colIdx
 	position := make([]int32, numNodes)
 	copy(position, csr.RowPtr[:numNodes])
-    if reverse {
-        for _, e := range edges {
-            csr.ColIdx[position[e.Target]] = e.Source
-            position[e.Target]++
-        }
-    } else {
-        for _, e := range edges {
-            csr.ColIdx[position[e.Source]] = e.Target
-            position[e.Source]++
-        }
-    }
+	if reverse {
+		for _, e := range edges {
+			csr.ColIdx[position[e.Target]] = e.Source
+			position[e.Target]++
+		}
+	} else {
+		for _, e := range edges {
+			csr.ColIdx[position[e.Source]] = e.Target
+			position[e.Source]++
+		}
+	}
 	return csr, nil
 }
 
 func (csr *CSR) Neighbors(node int32) []int32 {
-    start := csr.RowPtr[node]
-    end := csr.RowPtr[node+1]
-    return csr.ColIdx[start:end]
+	start := csr.RowPtr[node]
+	end := csr.RowPtr[node+1]
+	return csr.ColIdx[start:end]
 }
 
 func ValidateEdges(edges []Edge, numNodes int32) error {
-    if edges == nil {
-        return ErrNilEdges
-    }
+	if edges == nil {
+		return ErrNilEdges
+	}
 
-    for _, e := range edges {
-        if e.Source < 0 || e.Target < 0 {
-            return fmt.Errorf("%w: source=%d, target=%d", ErrNegativeNodeID, e.Source, e.Target)
-        }
-        if e.Source >= numNodes || e.Target >= numNodes {
-            return fmt.Errorf("%w: source=%d, target=%d, max=%d", ErrNodeOutOfBounds, e.Source, e.Target, numNodes-1)
-        }
-    }
-    return nil
+	for _, e := range edges {
+		if e.Source < 0 || e.Target < 0 {
+			return fmt.Errorf("%w: source=%d, target=%d", ErrNegativeNodeID, e.Source, e.Target)
+		}
+		if e.Source >= numNodes || e.Target >= numNodes {
+			return fmt.Errorf("%w: source=%d, target=%d, max=%d", ErrNodeOutOfBounds, e.Source, e.Target, numNodes-1)
+		}
+	}
+	return nil
 }
