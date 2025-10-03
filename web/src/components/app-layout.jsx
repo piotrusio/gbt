@@ -1,5 +1,6 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app-sidebar"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export function AppLayout({ children }) {
   return (
@@ -12,6 +13,7 @@ export function AppLayout({ children }) {
             <div className="flex-1">
               <h1 className="text-lg font-semibold">OGBT Application</h1>
             </div>
+            <ModeToggle />
           </header>
           <div className="flex-1 p-4">
             {children}
