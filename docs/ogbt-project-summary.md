@@ -189,8 +189,8 @@ Query resolution determines depth. Graph structure supports zoom in/out.
 Language:              Go 1.25+
 EventStore/Messegaing: NATS JetStream
 Graph Engine:          Custom CSR (Compressed Sparse Row) + DFS/BFS Algo
-Metadata Storage:      DuckDB + Parquet
-Master Data:           Valkey (Redis fork)
+Metadata Storage:      Apache Pinot
+Master Data:           Apache Pinot
 Observability:         Op enTelemetry
 Blockchain:            Hyperledger Fabric SDK
 ```
